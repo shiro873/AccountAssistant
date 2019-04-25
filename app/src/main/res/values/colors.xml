@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#eceff1</color>
+    <color name="colorPrimaryDark">#babdbe</color>
+    <color name="colorAccent">#babdbe</color>
+
+
+    <color name="primaryColorDarkTheme">#37474f</color>
+    <color name="primaryLightColorDarkTheme">#102027</color>
+    <color name="primaryDarkColorDarkTheme">#62727b</color>
+    <color name="primaryTextColorDarkTheme">#ffffff</color>
+
+    <color name="primaryColorLightTheme">#eceff1</color>
+    <color name="primaryLightColorLightTheme">#ffffff</color>
+    <color name="primaryDarkColorLightTheme">#babdbe</color>
+    <color name="primaryTextColorLightTheme">#3F4244</color>
+
+    <color name="purple">#5e35b1</color>
+    <string name="purple">#5e35b1</string>
+    <color name="dakrBlue">#280680</color>
+    <string name="dakrBlue">#280680</string>
+    <color name="slightlyLightBlue">#472EBE</color>
+    <string name="slightlyLightBlue">#311b92</string>
+    <color name="lightPurple">#9162e4</color>
+    <string name="lightPurple">#9162e4</string>
+    <color name="lightIndigo">#3949ab</color>
+    <string name="lightIndigo">#3949ab</string>
+
+    <color name="lightIndigo2">#4C568B</color>
+    <string name="lightIndigo2">#3949ab</string>
+
+    <color name="lightGreen">#66bb6a</color>
+    <string name="lightGreen">#66bb6a</string>
+    <color name="darkPasteGreen">#338a3e</color>
+    <string name="darkPasteGreen">#338a3e</string>
+    <color name="lightPaste">#98ee99</color>
+    <string name="lightPaste">#98ee99</string>
+    <color name="bottleGreen">#2e7d32</color>
+    <string name="bottleGreen">#2e7d32</string>
+    <color name="darkBottleGreen">#005005</color>
+    <string name="darkBottleGreen">#005005</string>
+
+
+
+
+</resources>
