@@ -6,11 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/bosnia</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/bosnia</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -19,6 +21,7 @@
 
     <style name="SplashScreenTheme" parent="Theme.AppCompat.Light">
         <item name ="android:windowBackground"> @drawable/splash_background</item>
+        <item name="android:fontFamily">@font/bosnia</item>
     </style>
 
     <style name="Spinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">

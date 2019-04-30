@@ -4,7 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,13 +15,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hexa.accountsassistant.R;
 import com.hexa.accountsassistant.activity.dashboard.DashboardActivity;
 import com.hexa.accountsassistant.db.model.AccountHeads;
 import com.hexa.accountsassistant.db.model.History;
+import com.hexa.accountsassistant.utils.KeyboardUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +42,10 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
     EditText amountInput;
     Spinner spinner;
     Button button;
+    TextView expenseText;
+    FrameLayout expenseLayout;
+    ConstraintLayout entryLayout;
+    static boolean isExpense;
 
     EntryViewModel viewModel;
 
@@ -52,6 +61,33 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
         amountInput = findViewById(R.id.amount);
         spinner = findViewById(R.id.spinner);
         button = findViewById(R.id.button);
+        expenseText = findViewById(R.id.expense_text);
+        expenseLayout = findViewById(R.id.expense_layout);
+        entryLayout = findViewById(R.id.entry_layout);
+        expenseLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(KeyboardUtil.isKeyboardActive(EntryActivity.this))
+                    KeyboardUtil.hideKeyboard(EntryActivity.this);
+            }
+        });
+
+        isExpense = false;
+
+        expenseLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isExpense){
+                    expenseLayout.setBackground(getResources().getDrawable(R.drawable.expense_unselected_back));
+                    isExpense = false;
+                    updateSpinnerValue();
+                }else {
+                    expenseLayout.setBackground(getResources().getDrawable(R.drawable.expense_selected_back));
+                    isExpense = true;
+                    updateSpinnerValue();
+                }
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,5 +156,9 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
     public void updateUI(){
         Intent intent = new Intent(EntryActivity.this, DashboardActivity.class);
         startActivity(intent);
+    }
+
+    public void updateSpinnerValue(){
+
     }
 }
