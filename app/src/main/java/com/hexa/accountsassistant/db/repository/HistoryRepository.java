@@ -47,4 +47,8 @@ public class HistoryRepository {
     public LiveData<List<VM>> getAllData(){
         return dao.getAllData();
     }
+
+    public LiveData<Double> getByReceived(boolean isReceived){
+        return dao.getByReceived(isReceived);
+    }
 }

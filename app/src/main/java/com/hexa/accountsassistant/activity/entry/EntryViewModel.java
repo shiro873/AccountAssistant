@@ -33,4 +33,8 @@ public class EntryViewModel extends AndroidViewModel {
     public LiveData<List<AccountHeads>> getHeadDetails(String headName){
         return repository.getHeads(headName);
     }
+
+    public LiveData<List<AccountHeads>> getHeadsByReceivable(boolean isReceivable){
+        return repository.getHeadsByReceivable(isReceivable);
+    }
 }

@@ -48,6 +48,10 @@ public class AccountHeadsRepository {
         return dao.getById(headName);
     }
 
+    public LiveData<List<AccountHeads>> getHeadsByReceivable(boolean headName){
+        return dao.getByReceivable(headName);
+    }
+
     public LiveData<AccountHeads> getHead(int id){
         return dao.getById(id);
     }

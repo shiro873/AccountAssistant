@@ -29,4 +29,7 @@ public interface HistoryDao {
     @Query("select ac.headName, ac.colorCode, ac.receivable," +
             "h.amount, h.dateTime, h.received from history h inner join account_head ac on ac.id = h.headId")
     LiveData<List<VM>> getAllData();
+
+    @Query("select sum(amount) from history where received= :is_received")
+    LiveData<Double> getByReceived(boolean is_received);
 }

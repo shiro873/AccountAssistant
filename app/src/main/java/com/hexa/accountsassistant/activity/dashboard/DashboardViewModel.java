@@ -35,4 +35,8 @@ public class DashboardViewModel extends AndroidViewModel {
     public LiveData<List<VM>> getAllData(){
         return repository.getAllData();
     }
+
+    public LiveData<Double> getByReceived(boolean isReceived){
+        return repository.getByReceived(isReceived);
+    }
 }

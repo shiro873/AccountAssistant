@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +48,7 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
     FrameLayout expenseLayout;
     ConstraintLayout entryLayout;
     static boolean isExpense;
+    ImageView fabBack;
 
     EntryViewModel viewModel;
 
@@ -72,18 +75,18 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
-        isExpense = false;
+        isExpense = true;
 
         expenseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isExpense){
+                if(!isExpense){
                     expenseLayout.setBackground(getResources().getDrawable(R.drawable.expense_unselected_back));
-                    isExpense = false;
+                    isExpense = true;
                     updateSpinnerValue();
                 }else {
                     expenseLayout.setBackground(getResources().getDrawable(R.drawable.expense_selected_back));
-                    isExpense = true;
+                    isExpense = false;
                     updateSpinnerValue();
                 }
             }
@@ -96,26 +99,25 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
+        fabBack = findViewById(R.id.fab_back);
+        fabBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         spinner.setOnItemSelectedListener(this);
         list = new ArrayList<>();
 
-        initSpinner();
+        updateSpinnerValue();
     }
 
-    private void initSpinner(){
-        LiveData<List<AccountHeads>> getHeads = viewModel.getHeads();
-        getHeads.observe(this, new Observer<List<AccountHeads>>() {
-            @Override
-            public void onChanged(@Nullable List<AccountHeads> accountHeads) {
-                list = accountHeads;
-                SolidList<String> headList = stream(accountHeads).map(AccountHeads::getHeadName).collect(toSolidList());
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(EntryActivity.this, android.R.layout.simple_spinner_item, headList);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(dataAdapter);
-                spinner.setSelection(0);
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -125,6 +127,10 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void insertHistory(){
+        if(amountInput.getText().toString() == null || amountInput.getText().toString().equals("")){
+            amountInput.setError("please insert amount");
+            return;
+        }
         if(TextUtils.isDigitsOnly(amountInput.getText().toString())){
             LiveData<List<AccountHeads>> getHeadsDetails = viewModel.getHeadDetails(spinner.getSelectedItem().toString());
             getHeadsDetails.observe(this, new Observer<List<AccountHeads>>() {
@@ -135,12 +141,12 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
                     History history = new History();
                     history.setDateTime(currentDate);
                     history.setAmount(Double.parseDouble(amountInput.getText().toString()));
+                    history.setHead(accountHeads.get(0).getId());
                     boolean isReceived = false;
                     for (AccountHeads head: list) {
-                        if(head.getHeadName().equals(history.getHead()))
+                        if(head.getId() == history.getHead())
                             isReceived = head.isReceivable();
                     }
-                    history.setHead(accountHeads.get(0).getId());
                     //isReceived = stream(list).filter(headName -> headName.equals(history.getHead())).collect(toSolidList()).get(0).isReceivable();
                     history.setReceived(isReceived);
                     viewModel.insertHistory(history);
@@ -159,6 +165,17 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void updateSpinnerValue(){
-
+        LiveData<List<AccountHeads>> getHeads = viewModel.getHeadsByReceivable(isExpense);
+        getHeads.observe(this, new Observer<List<AccountHeads>>() {
+            @Override
+            public void onChanged(@Nullable List<AccountHeads> accountHeads) {
+                list = accountHeads;
+                SolidList<String> headList = stream(accountHeads).map(AccountHeads::getHeadName).collect(toSolidList());
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(EntryActivity.this, R.layout.spinner_list_item, headList);
+                dataAdapter.setDropDownViewResource(R.layout.spinner_list_item);
+                spinner.setAdapter(dataAdapter);
+                spinner.setSelection(0);
+            }
+        });
     }
 }

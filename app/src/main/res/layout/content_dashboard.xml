@@ -67,10 +67,10 @@
 
         <!-- The text that goes in a center of the chart -->
         <TextView
-            android:id="@+id/number_of_calories"
+            android:id="@+id/percentage_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1500/2000"
+            android:text="0%"
             android:textSize="20sp"
             android:textColor="#0892D0"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
+        android:text="Income vs. Expense"
         android:textColor="#0892D0"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
@@ -99,10 +99,10 @@
         app:layout_constraintVertical_bias="0.317" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/income_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         android:textColor="#0892D0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -111,7 +111,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Income"
         android:textColor="#0892D0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -120,25 +120,26 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Expense"
         android:textColor="#0892D0"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/month_year"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="TextView"
+        android:text="May"
+        android:textSize="18sp"
         android:textColor="#0892D0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/expense_amount"
         android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:text="TextView"
+        android:layout_height="wrap_content"
+        android:text=""
         android:textColor="#0892D0"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />

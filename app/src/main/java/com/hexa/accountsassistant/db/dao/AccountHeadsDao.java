@@ -29,4 +29,7 @@ public interface AccountHeadsDao {
 
     @Query("select * from account_head where id = :id limit 1")
     LiveData<AccountHeads> getById(int id);
+
+    @Query("select * from account_head where receivable = :receveivable")
+    LiveData<List<AccountHeads>> getByReceivable(boolean receveivable);
 }
